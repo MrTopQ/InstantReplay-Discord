@@ -1,6 +1,6 @@
 # InstantReplay-Discord
 
-Vencord plugin. Rolling screen buffer inside Discord. Press the hotkey, the last minutes land in a file.
+Vencord plugin. Rolling screen buffer inside Discord. Press the hotkey, the last minutes of your screen land in a file.
 
 <img src="docs/window.png" alt="Plugin window" width="520">
 
