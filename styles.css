@@ -1,0 +1,1047 @@
+.vc-ir-header-btn,
+.vc-ir-header-icon {
+    -webkit-app-region: no-drag;
+}
+
+.vc-ir-header-icon {
+    color: var(--interactive-icon-default, var(--interactive-normal));
+}
+
+.vc-ir-header-btn:hover .vc-ir-header-icon {
+    color: var(--interactive-icon-hover, var(--interactive-hover));
+}
+
+.vc-ir-scope {
+    --ir-bg: var(--background-base-lower, var(--background-tertiary, #1e1f22));
+    --ir-raised: var(--background-base-low, var(--background-secondary, #232428));
+    --ir-card: var(--background-surface-high, var(--background-secondary-alt, #2b2d31));
+    --ir-card-hover: var(--background-surface-higher, var(--background-modifier-hover, #313338));
+    --ir-floating: var(--background-surface-highest, var(--background-floating, #383a40));
+    --ir-mod: var(--background-mod-subtle, rgb(151 151 159 / 12%));
+    --ir-mod-strong: var(--background-mod-strong, rgb(151 151 159 / 20%));
+    --ir-border: var(--border-subtle, rgb(255 255 255 / 8%));
+    --ir-border-strong: var(--border-normal, rgb(255 255 255 / 16%));
+    --ir-text: var(--text-default, var(--text-normal, #dbdee1));
+    --ir-text-strong: var(--text-strong, var(--header-primary, #f2f3f5));
+    --ir-text-muted: var(--text-muted, #949ba4);
+    --ir-brand: var(--brand-500, var(--brand-experiment, #5865f2));
+    --ir-green: var(--status-positive, #23a55a);
+    --ir-red: var(--status-danger, #f23f43);
+    --ir-amber: var(--status-warning, #f0b232);
+    --ir-rec: var(--ir-red);
+    --ir-shadow: var(--shadow-high, 0 12px 24px rgb(0 0 0 / 24%));
+    --ir-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ir-font: var(--font-primary, "gg sans", "Noto Sans", sans-serif);
+    --ir-mono: var(--font-code, ui-monospace, "Consolas", monospace);
+
+    color: var(--ir-text);
+    font-family: var(--ir-font);
+}
+
+.vc-ir-root {
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    contain: strict;
+}
+
+.vc-ir-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 52px 24px 24px;
+    background: rgb(0 0 0 / 60%);
+    animation: vc-ir-fade-in 0.16s ease both;
+}
+
+.vc-ir-window {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(620px, 100%);
+    max-height: min(820px, 100%);
+    overflow: hidden;
+    border: 1px solid var(--ir-border);
+    border-radius: 18px;
+    background: var(--ir-bg);
+    box-shadow: var(--ir-shadow), 0 0 0 1px rgb(0 0 0 / 24%);
+    animation: vc-ir-window-in 0.2s var(--ir-ease) both;
+}
+
+.vc-ir-window:focus {
+    outline: none;
+}
+
+.vc-ir-window-embedded {
+    width: 100%;
+    max-height: 72vh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    animation: none;
+}
+
+.vc-ir-root-closing {
+    pointer-events: none;
+}
+
+.vc-ir-root-closing .vc-ir-overlay {
+    animation: vc-ir-fade-out 0.12s ease both;
+}
+
+.vc-ir-root-closing .vc-ir-window {
+    animation: vc-ir-window-out 0.12s ease both;
+}
+
+.vc-ir-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background-image: radial-gradient(120% 60% at 0% 0%, color-mix(in srgb, var(--ir-brand) 9%, transparent), transparent 60%);
+    transition: background-image 0.3s ease;
+}
+
+.vc-ir-shell-recording,
+.vc-ir-shell-grace {
+    background-image: radial-gradient(120% 60% at 0% 0%, color-mix(in srgb, var(--ir-rec) 13%, transparent), transparent 62%);
+}
+
+.vc-ir-shell-error,
+.vc-ir-shell-recovering {
+    background-image: radial-gradient(120% 60% at 0% 0%, color-mix(in srgb, var(--ir-amber) 11%, transparent), transparent 62%);
+}
+
+.vc-ir-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 16px 14px 20px;
+}
+
+.vc-ir-head-text {
+    margin-left: 4px;
+}
+
+.vc-ir-head-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    color: var(--ir-text-strong);
+    background: var(--ir-mod-strong);
+    transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.vc-ir-shell-recording .vc-ir-head-icon,
+.vc-ir-shell-grace .vc-ir-head-icon {
+    color: #fff;
+    background: linear-gradient(140deg, var(--ir-rec), color-mix(in srgb, var(--ir-rec) 55%, #ff8a3d));
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--ir-rec) 38%, transparent);
+}
+
+.vc-ir-head-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.vc-ir-head-title {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ir-text-strong);
+}
+
+.vc-ir-head-line {
+    font-size: 13px;
+    color: var(--ir-text-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vc-ir-body {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    min-height: 0;
+    padding: 4px 12px 20px 20px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ir-mod-strong) transparent;
+}
+
+.vc-ir-hotkey {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    margin-right: 2px;
+    padding: 0 7px 0 10px;
+    border: 1px solid var(--ir-border);
+    border-radius: 10px;
+    background: var(--ir-mod);
+    color: var(--ir-text-muted);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.vc-ir-hotkey:hover {
+    border-color: var(--ir-border-strong);
+    background: var(--ir-mod-strong);
+    color: var(--ir-text-strong);
+}
+
+.vc-ir-hotkey .vc-ir-key {
+    background: var(--ir-mod-strong);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 18%);
+    color: var(--ir-text-strong);
+}
+
+.vc-ir-hotkey-listening,
+.vc-ir-hotkey-listening:hover {
+    padding-right: 12px;
+    border-color: var(--ir-brand);
+    background: color-mix(in srgb, var(--ir-brand) 14%, transparent);
+    color: var(--ir-text-strong);
+    animation: vc-ir-listen 1.4s ease-in-out infinite;
+}
+
+.vc-ir-hotkey-problem,
+.vc-ir-hotkey-problem:hover {
+    border-color: var(--ir-amber);
+    background: color-mix(in srgb, var(--ir-amber) 12%, transparent);
+}
+
+.vc-ir-hotkey-prompt {
+    white-space: nowrap;
+}
+
+.vc-ir-icon-button {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--ir-text-muted);
+    cursor: pointer;
+    transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.vc-ir-icon-button:hover {
+    background: var(--ir-mod);
+    color: var(--ir-text-strong);
+}
+
+.vc-ir-icon-button:active {
+    background: var(--ir-mod-strong);
+}
+
+.vc-ir-scope :focus-visible {
+    outline: 2px solid var(--ir-brand);
+    outline-offset: 2px;
+}
+
+.vc-ir-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 18px 16px;
+    border: 1px solid var(--ir-border);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--ir-raised) 88%, transparent);
+}
+
+.vc-ir-hero-recording,
+.vc-ir-hero-grace {
+    border-color: color-mix(in srgb, var(--ir-rec) 26%, var(--ir-border));
+}
+
+.vc-ir-hero-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.vc-ir-hero-note {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ir-text-muted);
+}
+
+.vc-ir-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 26px;
+    padding: 0 11px 0 9px;
+    border-radius: 999px;
+    background: var(--ir-mod);
+    color: var(--ir-text-strong);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.vc-ir-state-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ir-text-muted);
+}
+
+.vc-ir-state-recording {
+    background: color-mix(in srgb, var(--ir-rec) 16%, transparent);
+    color: color-mix(in srgb, var(--ir-rec) 45%, var(--ir-text-strong));
+}
+
+.vc-ir-state-recording .vc-ir-state-dot {
+    background: var(--ir-rec);
+    animation: vc-ir-rec 1.6s ease-in-out infinite;
+}
+
+.vc-ir-state-grace .vc-ir-state-dot,
+.vc-ir-state-recovering .vc-ir-state-dot,
+.vc-ir-state-error .vc-ir-state-dot {
+    background: var(--ir-amber);
+}
+
+.vc-ir-state-grace,
+.vc-ir-state-recovering,
+.vc-ir-state-error {
+    background: color-mix(in srgb, var(--ir-amber) 14%, transparent);
+}
+
+.vc-ir-state-starting .vc-ir-state-dot {
+    background: var(--ir-brand);
+    animation: vc-ir-blink 0.9s ease-in-out infinite;
+}
+
+.vc-ir-clock {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 14px;
+    font-variant-numeric: tabular-nums;
+}
+
+.vc-ir-clock-value {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ir-text-strong);
+}
+
+.vc-ir-clock-of {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ir-text-muted);
+}
+
+.vc-ir-bar {
+    position: relative;
+    height: 6px;
+    margin-top: 14px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: var(--ir-mod);
+}
+
+.vc-ir-bar-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--ir-rec) 55%, transparent), var(--ir-rec));
+    transform-origin: left center;
+    transition: transform 0.9s linear;
+}
+
+.vc-ir-hero-grace .vc-ir-bar-fill {
+    background: linear-gradient(90deg, color-mix(in srgb, var(--ir-amber) 50%, transparent), var(--ir-amber));
+}
+
+.vc-ir-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.vc-ir-tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+    min-width: 0;
+    padding: 10px 12px 11px;
+    border-radius: 11px;
+    background: var(--ir-card);
+}
+
+.vc-ir-tile-value {
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--ir-text-strong);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.vc-ir-tile-label {
+    font-size: 12px;
+    line-height: 1.3;
+    color: var(--ir-text-muted);
+}
+
+.vc-ir-meter {
+    position: relative;
+    height: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: var(--ir-mod);
+    mask-image: repeating-linear-gradient(90deg, #000 0 5px, transparent 5px 7px);
+}
+
+.vc-ir-meter-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--ir-text-muted);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.1s linear;
+}
+
+.vc-ir-audio-live .vc-ir-meter-fill {
+    background: linear-gradient(90deg, var(--ir-green) 0 68%, var(--ir-amber) 82%, var(--ir-red) 96%);
+}
+
+.vc-ir-audio-live .vc-ir-tile-label {
+    color: var(--ir-green);
+    font-weight: 600;
+}
+
+.vc-ir-audio-lost .vc-ir-tile-label {
+    color: var(--ir-amber);
+    font-weight: 600;
+}
+
+.vc-ir-audio-off .vc-ir-meter {
+    opacity: 0.4;
+}
+
+.vc-ir-alert {
+    margin-top: 14px;
+    padding: 10px 12px;
+    border-left: 3px solid var(--ir-amber);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--ir-amber) 10%, transparent);
+    color: var(--ir-text);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.vc-ir-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    container-type: inline-size;
+}
+
+@container (max-width: 470px) {
+    .vc-ir-keys {
+        display: none;
+    }
+}
+
+.vc-ir-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease, transform 0.08s ease;
+}
+
+.vc-ir-button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.vc-ir-button:disabled {
+    cursor: default;
+    opacity: 0.7;
+}
+
+.vc-ir-button-primary {
+    background: var(--ir-brand);
+    color: #fff;
+}
+
+.vc-ir-button-primary:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--ir-brand) 86%, #000);
+}
+
+.vc-ir-button-save {
+    flex: 1 1 auto;
+    height: 46px;
+    min-width: 0;
+    padding: 0 10px 0 16px;
+    font-size: 15px;
+}
+
+.vc-ir-button-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+}
+
+.vc-ir-button-ghost {
+    height: 46px;
+    border-color: var(--ir-border-strong);
+    background: transparent;
+    color: var(--ir-text);
+}
+
+.vc-ir-button-ghost:hover {
+    border-color: color-mix(in srgb, var(--ir-red) 55%, transparent);
+    background: color-mix(in srgb, var(--ir-red) 10%, transparent);
+    color: var(--ir-text-strong);
+}
+
+.vc-ir-keys {
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 3px;
+}
+
+.vc-ir-key {
+    min-width: 20px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgb(0 0 0 / 22%);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 25%);
+    color: rgb(255 255 255 / 88%);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+}
+
+.vc-ir-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgb(255 255 255 / 35%);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: vc-ir-spin 0.7s linear infinite;
+}
+
+.vc-ir-hero-idle .vc-ir-hero-hint {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ir-text-muted);
+}
+
+.vc-ir-hero-idle .vc-ir-actions {
+    margin-top: 18px;
+}
+
+.vc-ir-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vc-ir-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.vc-ir-section-title {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ir-text-muted);
+}
+
+.vc-ir-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 6px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--ir-text-muted);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.12s ease, background-color 0.12s ease;
+}
+
+.vc-ir-link:hover {
+    background: var(--ir-mod);
+    color: var(--ir-text-strong);
+}
+
+.vc-ir-clips {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.vc-ir-clip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-right: 6px;
+    border-radius: 12px;
+    transition: background-color 0.12s ease;
+}
+
+.vc-ir-clip:hover {
+    background: var(--ir-mod);
+}
+
+.vc-ir-clip-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 6px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.vc-ir-thumb {
+    position: relative;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 112px;
+    height: 63px;
+    overflow: hidden;
+    border-radius: 9px;
+    background: var(--ir-card);
+    color: var(--ir-text-muted);
+}
+
+.vc-ir-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s var(--ir-ease);
+}
+
+.vc-ir-clip-main:hover .vc-ir-thumb img {
+    transform: scale(1.05);
+}
+
+.vc-ir-thumb-play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgb(0 0 0 / 38%);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.vc-ir-clip-main:hover .vc-ir-thumb-play,
+.vc-ir-clip-main:focus-visible .vc-ir-thumb-play {
+    opacity: 1;
+}
+
+.vc-ir-thumb-badge {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    padding: 1px 5px;
+    border-radius: 5px;
+    background: rgb(0 0 0 / 72%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 15px;
+    font-variant-numeric: tabular-nums;
+}
+
+.vc-ir-clip-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.vc-ir-clip-title {
+    overflow: hidden;
+    color: var(--ir-text-strong);
+    font-size: 15px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vc-ir-clip-title::first-letter {
+    text-transform: uppercase;
+}
+
+.vc-ir-clip-meta {
+    color: var(--ir-text-muted);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+}
+
+.vc-ir-empty {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px dashed var(--ir-border-strong);
+    border-radius: 12px;
+    color: var(--ir-text-muted);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.vc-ir-clips-loading {
+    height: 75px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, var(--ir-mod) 0%, var(--ir-mod-strong) 50%, var(--ir-mod) 100%) 0 0 / 200% 100%;
+    animation: vc-ir-shimmer 1.2s linear infinite;
+}
+
+.vc-ir-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 2px;
+    border-top: 1px solid var(--ir-border);
+}
+
+.vc-ir-details-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.vc-ir-details-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px 4px 4px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--ir-text-muted);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.vc-ir-details-toggle:hover {
+    background: var(--ir-mod);
+    color: var(--ir-text-strong);
+}
+
+.vc-ir-details-chevron {
+    transition: transform 0.15s ease;
+}
+
+.vc-ir-voicecheck {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 4px 6px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--ir-text-muted);
+    font-family: inherit;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.vc-ir-voicecheck:hover,
+.vc-ir-voicecheck:focus-visible {
+    outline: none;
+    background: var(--ir-mod);
+    color: var(--ir-text);
+}
+
+.vc-ir-voicecheck-dot {
+    flex: 0 0 auto;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ir-text-muted);
+    opacity: 0.75;
+}
+
+.vc-ir-voicecheck-broken {
+    color: var(--ir-amber);
+}
+
+.vc-ir-voicecheck-broken .vc-ir-voicecheck-dot {
+    background: var(--ir-amber);
+    opacity: 1;
+}
+
+.vc-ir-voicecheck-tip {
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--ir-text);
+}
+
+.vc-ir-voicecheck-ok,
+.vc-ir-voicecheck-bad {
+    display: inline-block;
+    width: 16px;
+    font-weight: 700;
+}
+
+.vc-ir-voicecheck-ok {
+    color: var(--ir-green);
+}
+
+.vc-ir-voicecheck-bad {
+    color: var(--ir-amber);
+}
+
+.vc-ir-voicecheck-note {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--ir-border-strong);
+    color: var(--ir-text-muted);
+    font-size: 11.5px;
+}
+
+.vc-ir-details-open .vc-ir-details-chevron {
+    transform: rotate(90deg);
+}
+
+.vc-ir-details-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 2px 4px 0;
+    animation: vc-ir-fade-in 0.15s ease both;
+}
+
+.vc-ir-detail {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.vc-ir-detail-label {
+    color: var(--ir-text-muted);
+}
+
+.vc-ir-detail-value {
+    min-width: 0;
+    color: var(--ir-text);
+    overflow-wrap: anywhere;
+}
+
+.vc-ir-detail-value code {
+    font-family: var(--ir-mono);
+    font-size: 12px;
+}
+
+.vc-ir-path {
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--ir-text);
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+.vc-ir-path:hover {
+    color: var(--ir-text-strong);
+    text-decoration: underline;
+}
+
+.vc-ir-details-note {
+    margin: 6px 0 0;
+    color: var(--ir-text-muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.vc-ir-embed {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.vc-ir-embed .vc-ir-details {
+    border-top: none;
+}
+
+.vc-ir-hint {
+    position: fixed;
+    z-index: 1003;
+    max-width: 340px;
+    padding: 7px 11px;
+    border: 1px solid var(--ir-border-strong);
+    border-radius: 9px;
+    background: var(--ir-floating);
+    box-shadow: var(--ir-shadow);
+    color: var(--ir-text-strong);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    pointer-events: none;
+    animation: vc-ir-hint-in 0.09s ease-out both;
+}
+
+.vc-ir-hint::after {
+    content: "";
+    position: absolute;
+    left: var(--ir-hint-arrow, 50%);
+    top: 100%;
+    width: 9px;
+    height: 9px;
+    border-right: 1px solid var(--ir-border-strong);
+    border-bottom: 1px solid var(--ir-border-strong);
+    background: inherit;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.vc-ir-hint-below::after {
+    top: 0;
+    transform: translate(-50%, -50%) rotate(225deg);
+}
+
+@keyframes vc-ir-fade-in {
+    from { opacity: 0; }
+}
+
+@keyframes vc-ir-fade-out {
+    to { opacity: 0; }
+}
+
+@keyframes vc-ir-window-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.985);
+    }
+}
+
+@keyframes vc-ir-window-out {
+    to {
+        opacity: 0;
+        transform: translateY(6px) scale(0.99);
+    }
+}
+
+@keyframes vc-ir-hint-in {
+    from {
+        opacity: 0;
+        transform: translateY(2px);
+    }
+}
+
+@keyframes vc-ir-rec {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ir-rec) 60%, transparent); }
+    50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--ir-rec) 0%, transparent); }
+}
+
+@keyframes vc-ir-listen {
+    50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--ir-brand) 22%, transparent); }
+}
+
+@keyframes vc-ir-blink {
+    50% { opacity: 0.35; }
+}
+
+@keyframes vc-ir-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes vc-ir-shimmer {
+    to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vc-ir-overlay,
+    .vc-ir-window,
+    .vc-ir-hint,
+    .vc-ir-details-body,
+    .vc-ir-root-closing .vc-ir-overlay,
+    .vc-ir-root-closing .vc-ir-window,
+    .vc-ir-state-dot,
+    .vc-ir-clips-loading,
+    .vc-ir-hotkey-listening {
+        animation: none;
+    }
+
+    .vc-ir-bar-fill,
+    .vc-ir-meter-fill,
+    .vc-ir-thumb img {
+        transition: none;
+    }
+}
